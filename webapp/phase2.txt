@@ -1,0 +1,14 @@
+Henry Pearson, Addison Partida
+
+The data set contains about 100 foods. They can be sorted by item_name and has an associated brand_id and item_id, followed 22 different fields about the food including things like calories, calcium, vitamin X's. servings, protein, etc. It contains To obtain the data set we downloaded, visit https://www.nutritionix.com/database and download the grocery sample. Once downloaded, the csv file will be called "grocery_sample-2015.csv"
+
+
+Our end goal is for user to be able to make healthy, well-informed decisions about what they buy in the grocery store. They should be able to plan their meals with a greater degree of nutritional accuracy. This includes not only getting all the listed nutritional facts, but also getting items by a certain nutritional value (i.e. less than 500 mg sodium per 400 calories).
+
+User stories:
+
+Bob is a football player at Carleton and wants to know what foods provide the highest protein to calorie ratio so that he can get big and strong to protect his quarterback.
+
+Cindy is trying to lower her cholesterol intake, so she hopes to find foods that she would enjoy eating, while maintaining healthy caloric intake and lowering her cholesterol levels.
+
+Joyce is trying to construct a more balanced diet according to the nutritional pyramid. She can sort options by desired nutritional contents and pick what is best for her. 
