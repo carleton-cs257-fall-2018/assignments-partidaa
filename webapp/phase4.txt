@@ -1,18 +1,37 @@
 Creation of our table:
 CREATE TABLE items (
     id SERIAL,
-    .
-    .
-    .
-
+    item_name text,
+    brand_name text
 );
 CREATE TABLE stats (
-    id SERIAL,
-    calories float,
-    .
-    .
-    .
+id SERIAL,
+calories float,
+calories_fat float,
+total_fat float,
+sat_fat float,
+trans_fat_acid float,
+poly_unsat_fat float,
+mono_unsat_fat float,
+cholesterol float,
+sodium float,
+total_carb float,
+dietary_fiber float,
+sugars float,
+protein float,
+vitamin_A float,
+vitamin_C float,
+calcium float,
+iron float,
+potassium float,
+servings_per_cont float,
+serving_size_qty float,
+serving_size_unit text,
+serving_size_grams float,
+metric_qty float,
+metric_uom text
 );
+
 
 The following are our API queries for each of our "stats."
 calories:
