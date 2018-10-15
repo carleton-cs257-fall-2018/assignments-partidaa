@@ -4,6 +4,7 @@ CREATE TABLE items (
     item_name text,
     brand_name text
 );
+
 CREATE TABLE stats (
 id SERIAL,
 calories float,
@@ -32,18 +33,111 @@ metric_qty float,
 metric_uom text
 );
 
+SYNOPSIS: Get a list of all items of a certain brand_name.
 
-The following are our API queries for each of our "stats."
-calories:
+QUERY (GET): /items/items/<stats>/
 
-SYNOPSIS: Get a list of all the books written by the specified author.
-
-QUERY (GET): /items/authorname/<author_name>/
-
-RESPONSE: a list of dictionaries, each of which describes one book with keys 'title' and 'publication_year'
+RESPONSE: a list of dictionaries, each of which describes one item with keys 'item _name' and 'brand_name'
 
 EXAMPLE: https://api.nutritionix.com/v1_1/search/{" + food+"}",params=parameters
 
-[{'title':'Pride and Prejudice', 'publication_year':1813},
- {'title':'Sense and Sensibility', 'publication_year':1813},
- {'title':'Emma', 'publication_year':1815}]
+{'brand_name': Jimmy Dean, 'item_name': 'Main, Beef & Blackbean', 'nf_calories': 95.54, 'nf_total_fat': 4.5, 'nf_serving_size_qty': 1, 'nf_serving_size_unit': 'serving'}
+
+The actual JSON return will depend on the default nutritional facts we decide to give...
+
+
+SYNOPSIS: Get a list of all items of a certain item name. (maybe reconsider how many we actually want returned....)
+
+QUERY (GET): /items/items/<stats>/
+
+RESPONSE: a list of dictionaries, each of which describes one item with keys 'item _name' and 'brand_name'
+
+EXAMPLE: https://api.nutritionix.com/v1_1/search/{" + food+"}",params=parameters
+
+{
+    "total": 3,
+    "max_score": null,
+    "hits": [
+        {
+            "_index": "4qnk4vry5gujjxptu5rg",
+            "_type": "item",
+            "_id": "513fc9c6673c4fbc26001dca",
+            "_score": null,
+            "fields": {
+                "nf_sodium": 100,
+                "item_name": "Starbucks Coffee Frappuccino (Yield: 1 bottle)",
+                "brand_name": "Gandolfo's New York Delicatessen",
+                "nf_calories": 200,
+                "item_type": 1
+            },
+            "sort": [
+                200
+            ]
+        },
+        {
+            "_index": "4qnk4vry5gujjxptu5rg",
+            "_type": "item",
+            "_id": "513fc9c6673c4fbc26001dcd",
+            "_score": null,
+            "fields": {
+                "nf_sodium": 100,
+                "item_name": "Starbucks Vanilla Frappuccino (Yield: 1 bottle)",
+                "brand_name": "Gandolfo's New York Delicatessen",
+                "nf_calories": 200,
+                "item_type": 1
+            },
+            "sort": [
+                200
+            ]
+        },
+        {
+            "_index": "4qnk4vry5gujjxptu5rg",
+            "_type": "item",
+            "_id": "513fc9c6673c4fbc26001dcc",
+            "_score": null,
+            "fields": {
+                "nf_sodium": 95,
+                "item_name": "Starbucks Mocha Frappuccino (Yield: 1 bottle)",
+                "brand_name": "Gandolfo's New York Delicatessen",
+                "nf_calories": 180,
+                "item_type": 1
+            },
+            "sort": [
+                180
+            ]
+        }
+    ]
+}
+
+{'brand_name': Jimmy Dean, 'item_name': 'Main, Beef & Blackbean', 'nf_calories': 95.54, 'nf_total_fat': 4.5, 'nf_serving_size_qty': 1, 'nf_serving_size_unit': 'serving'}
+
+
+The actual JSON return will depend on the default nutritional facts we decide to give...
+
+
+
+
+SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count less than X.
+
+QUERY (GET): /items/items/<stats>/
+
+RESPONSE: a list of dictionaries, each of which describes one item with keys 'item _name' and 'brand_name'
+
+EXAMPLE: https://api.nutritionix.com/v1_1/search/{" + food+"}",params=parameters
+
+{'brand_name': Jimmy Dean, 'item_name': 'Main, Beef & Blackbean', 'nf_calories': 95.54, 'nf_total_fat': 4.5, 'nf_serving_size_qty': 1, 'nf_serving_size_unit': 'serving'}
+
+The actual JSON return will depend on the default nutritional facts we decide to give...
+
+
+
+
+SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count less than 5.
+
+QUERY (GET): /items/items/<stat>/<quantity>
+
+RESPONSE: a list of dictionaries, each of which describes one item with key name stat equal to the quantity number.
+
+EXAMPLE: https://api.nutritionix.com/v1_1/search//items/items/<calories>/<5>
+
+{'brand_name': Trident, 'item_name': 'Gum, Layers Sugar Free Gum, Jelly Bean', 'nf_calories': 2.5, 'nf_total_fat': 4.5, 'nf_serving_size_qty': 1, 'nf_serving_size_unit': 'serving'}
