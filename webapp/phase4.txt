@@ -66,11 +66,11 @@ EXAMPLE: https://api.nutritionix.com/v1_1/search/items/JimmyDean/Main,Beef&Black
 
 SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count less than a given amount.
 
-QUERY (GET): /items/lessThanQty/<stat>/<quantity>
+QUERY (GET): /items/lessThanQty/<stat>&<quantity>
 
 RESPONSE: a list of dictionaries, each of which describes one item with key name stat less than or equal to the quantity number.
 
-EXAMPLE: https://api.nutritionix.com/v1_1/search/items/lessThanQty/calories/5
+EXAMPLE: https://api.nutritionix.com/v1_1/search/items/lessThanQty/s=calories&q=5
 
 [{'brand_name': Eclipse, 'item_name': 'Gum, Sugarfree, Polar Ice, Big E Pak', 'nf_calories': 5, 'nf_serving_size_qty': 30},
  {'brand_name': Lipton Beverage, 'item_name': 'Iced Tea Mix, Tea & Honey Iced Green Tea/Blackberry Pomegranate', 'nf_calories': 5 'nf_serving_size_qty': 40},
@@ -85,11 +85,10 @@ EXAMPLE: https://api.nutritionix.com/v1_1/search/items/lessThanQty/calories/5
 
  SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count within a specified quantity range.
 
- QUERY (GET): /items/moreThanQty/<stat>/<quantity>/lessThanQty/<stat>/<quantity>
-
+ QUERY (GET): /items/qtyRange/s=<stat>&sq=<quantity>&mq=<quantity>
  RESPONSE: a list of dictionaries, each of which describes one item with key name stat in the range of the specified field.
 
- EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628/lessThanQty/calories/
+ EXAMPLE: https://api.nutritionix.com/v1_1/search/items/qtyRange/ss=calories&sq=628&mq=630
 
  [{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12},
   {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4}]
@@ -97,22 +96,22 @@ EXAMPLE: https://api.nutritionix.com/v1_1/search/items/lessThanQty/calories/5
 
   SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count within a specified quantity range and an additional minimum value of a second stat.
 
-  QUERY (GET): /items/moreThanQty/<stat>/<quantity>/lessThanQty/<stat>/<quantity>/moreThanQty/<stat>/<quantity>
+  QUERY (GET): /items/qtyRangePlusMin/s1=<stat>&s2=<stat>&sq1=<quantity>&sq2=<quantity>&mq1<quantity>
 
   RESPONSE: a list of dictionaries, each of which describes one item with key name stat in the range of the specified field.
 
-  EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628/lessThanQty/calories/moreThanQty/protein/1
+  EXAMPLE: https://api.nutritionix.com/v1_1/search/items/qtyRangePlusMin/s1=calories&s2=protein&sq1=628&sq2=1&mq1=630
 
   [{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12, 'nf_protein': 10},
    {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4, 'nf_protein': 1}]
 
    SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count within a specified quantity range and an additional maximum of a second stat.
 
-   QUERY (GET): /items/moreThanQty/<stat>/<quantity>/lessThanQty/<stat>/<quantity>/moreThanQty/<stat>/<quantity>
+   QUERY (GET): /items/qtyRangePlusMax/s1=<stat>&s2=<stat>&sq1=<quantity>&mq1=<quantity>&mq2=<quantity>
 
    RESPONSE: a list of dictionaries, each of which describes one item with key name stat in the range of the specified field.
 
-   EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628/lessThanQty/calories/moreThanQty/protein/1/lessThanQty/protein/15
+   EXAMPLE: https://api.nutritionix.com/v1_1/search/items/qtyRangePlusMax/s1=protein&s2=calories&sq1=1&mq1=10&mq2=630
 
    [{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12, 'nf_protein': 10},
     {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4, 'nf_protein': 1}]
