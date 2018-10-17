@@ -1,3 +1,7 @@
+Addison Partida
+Henry Pearson
+phase4.txt
+
 Creation of our table:
 CREATE TABLE items (
     id SERIAL,
@@ -39,26 +43,23 @@ QUERY (GET): /items/brandName/<brand_name>/
 
 RESPONSE: a list of dictionaries, each of which describes one item with keys 'item _name' and 'brand_name'
 
-EXAMPLE: https://api.nutritionix.com/v1_1/search/{" + food+"}",params=parameters
+EXAMPLE: https://api.nutritionix.com/v1_1/search/items/brandName/Trident
 
-{'brand_name': Jimmy Dean, 'item_name': 'Main, Beef & Blackbean', 'nf_calories': 95.54, 'nf_total_fat': 4.5, 'nf_serving_size_qty': 1, 'nf_serving_size_unit': 'serving'}
+[{'brand_name': Trident, 'item_name': 'Exotic Juice Drink, Guanabana', 'nf_calories': 140, 'nf_serving_size_qty': 1},
+{'brand_name': Trident, 'item_name': 'Grilled White Meat Chicken', 'nf_calories': 100 , 'nf_serving_size_qty': 1},
+etc. ]
 
-The actual JSON return will depend on the default nutritional facts we decide to give...
 
-
-SYNOPSIS: Get a list of all items of a certain item name. (maybe reconsider how many we actually want returned....)
+SYNOPSIS: Get a list of all items of a certain item name.
 
 QUERY (GET): /items/itemName/<item_name>/
 
 RESPONSE: a list of dictionaries, each of which describes one item with keys 'item _name' and 'brand_name'
 
-EXAMPLE: https://api.nutritionix.com/v1_1/search/{" + food+"}",params=parameters
+EXAMPLE: https://api.nutritionix.com/v1_1/search/items/JimmyDean/Main,Beef&Blackbeak
 
 
 {'brand_name': Jimmy Dean, 'item_name': 'Main, Beef & Blackbean', 'nf_calories': 95.54, 'nf_total_fat': 4.5, 'nf_serving_size_qty': 1, 'nf_serving_size_unit': 'serving'}
-
-
-The actual JSON return will depend on the default nutritional facts we decide to give...
 
 
 
@@ -82,14 +83,36 @@ EXAMPLE: https://api.nutritionix.com/v1_1/search/items/lessThanQty/calories/5
 
 
 
-SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count more than a given amount.
+ SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count within a specified quantity range.
 
-QUERY (GET): /items/moreThanQty/<stat>/<quantity>
+ QUERY (GET): /items/moreThanQty/<stat>/<quantity>/lessThanQty/<stat>/<quantity>
 
-RESPONSE: a list of dictionaries, each of which describes one item with key name stat more than or equal to the quantity number.
+ RESPONSE: a list of dictionaries, each of which describes one item with key name stat in the range of the specified field.
 
-EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628
+ EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628/lessThanQty/calories/
 
-[{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12},
- {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4}]
+ [{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12},
+  {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4}]
 
+
+  SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count within a specified quantity range and an additional minimum value of a second stat.
+
+  QUERY (GET): /items/moreThanQty/<stat>/<quantity>/lessThanQty/<stat>/<quantity>/moreThanQty/<stat>/<quantity>
+
+  RESPONSE: a list of dictionaries, each of which describes one item with key name stat in the range of the specified field.
+
+  EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628/lessThanQty/calories/moreThanQty/protein/1
+
+  [{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12, 'nf_protein': 10},
+   {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4, 'nf_protein': 1}]
+
+   SYNOPSIS: Get a list of all items of a certain item_name by some nutritional count within a specified quantity range and an additional maximum of a second stat.
+
+   QUERY (GET): /items/moreThanQty/<stat>/<quantity>/lessThanQty/<stat>/<quantity>/moreThanQty/<stat>/<quantity>
+
+   RESPONSE: a list of dictionaries, each of which describes one item with key name stat in the range of the specified field.
+
+   EXAMPLE: https://api.nutritionix.com/v1_1/search/items/moreThanQty/calories/628/lessThanQty/calories/moreThanQty/protein/1/lessThanQty/protein/15
+
+   [{'brand_name': Ultimate Nutrition, 'item_name': 'Massive Whey Gainer, Delicious Strawberry Flavor', 'nf_calories': 628, 'nf_serving_size_qty': 12, 'nf_protein': 10},
+    {'brand_name': Marie Callendar's Grocery, 'item_name': 'Turkey Pot Pie', 'nf_calories': 630, 'nf_serving_size_qty': 4, 'nf_protein': 1}]
