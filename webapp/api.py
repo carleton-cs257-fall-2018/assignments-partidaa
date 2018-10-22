@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+'''
+    example_flask_app.py
+    Jeff Ondich, 22 April 2016
+
+    A slightly more complicated Flask sample app than the
+    "hello world" app found at http://flask.pocoo.org/.
+'''
+import sys
+import flask
+import json
+
+app = flask.Flask(__name__)
+
+# Who needs a database when you can just hard-code some actors and movies?
+food_items = []
+brands = []
+serving_size_unit = []
+
+statList = [
+'calories', 'calories_fat', 'total_fat', 'sat_fat', 'trans_fat_acid', 'poly_unsat_fat',
+'mono_unsat_fat', 'cholesterol', 'sodium', 'total_carb', 'dietary_fiber', 'sugars', 'protein',
+'vitamin_A', 'vitamin_C', 'calcium', 'iron', 'potassium'
+]
+
+@app.route('/')
+def hello():
+    return 'Hello, Citizen of CS257.'
+
+@app.route('/items')
+def get_items():
+    ''' Returns a list of all items filtered by min and max quantity of a certain stat '''
+    item_list[]
+    stat = flask.request.args.get('stat')
+    min_quantity = flask.request.args.get('sq', default=0, type=int)
+    max_quantity = flask.request.args.get('mq', default=0, type=int)
+    for item in items:
+        stat_index = statList.index(stat) + 1
+        if item[stat_index].get() <= max_quantity and item[stat_index].get() >= min_quantity:
+            item_list.append(item)
+    return json.dumps(item_list)
+
+@app.route('/brands')
+def get_brands():
+    ''' Returns a list of all brands '''
+    brand_list = []
+    for brand in brands:
+        brand_list.append(brand)
+    return json.dumps(brand_list)
+
+if __name__ == '__main__':
+    if len(sys.argv) != 3:
+        print('Usage: {0} host port'.format(sys.argv[0]))
+        print('  Example: {0} perlman.mathcs.carleton.edu 5101'.format(sys.argv[0]))
+        exit()
+
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+    app.run(host=host, port=port, debug=True)
