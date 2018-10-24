@@ -9,6 +9,17 @@
 import sys
 import flask
 import json
+import psycopg2
+
+password = ''
+database = 'food_items'
+user = 'partidaa@perlman.mathcs.carleton.edu'
+
+try:
+    connection = psycopg2.connect(database=database, user=user, password=password)
+except Exception as e:
+    print(e)
+    exit()
 
 app = flask.Flask(__name__)
 
@@ -30,7 +41,7 @@ def hello():
 @app.route('/items')
 def get_items():
     ''' Returns a list of all items filtered by min and max quantity of a certain stat '''
-    item_list[]
+    item_list = []
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
     max_quantity = flask.request.args.get('mq', default=0, type=int)
@@ -47,6 +58,7 @@ def get_brands():
     for brand in brands:
         brand_list.append(brand)
     return json.dumps(brand_list)
+    
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
