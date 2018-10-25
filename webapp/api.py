@@ -37,9 +37,6 @@ def get_select_query_results(connection, query, parameters=None):
         cursor.execute(query)
     return cursor
 
-
-
-
 # Who needs a database when you can just hard-code some actors and movies?
 food_items = []
 brands = []
@@ -55,13 +52,19 @@ statList = [
 def hello():
     return 'Hello, Citizen of CS257.'
 
-@app.route('/fooditems')
+@app.route('/stats')
 def get_food_items():
-    ''' Returns a list of all items  '''
-    item_list = []
+    ''' Returns a list of all items with stat(min, max)'''
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
     max_quantity = flask.request.args.get('mq', default=0, type=int)
+    query = "SELECT item_name" + stat + "FROM stats"
+    item_list = []
+    connection = get_connection()
+
+    if connection is not None:
+        try:
+
     for item in items:
         stat_index = statList.index(stat) + 1
         if item[stat_index].get() <= max_quantity and item[stat_index].get() >= min_quantity:
