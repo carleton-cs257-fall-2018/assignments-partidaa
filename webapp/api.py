@@ -10,7 +10,10 @@ import sys
 import flask
 import json
 import psycopg2
-def get_connection:
+
+app = flask.Flask(__name__)
+
+def get_connection():
     password = ''
     database = 'partidaa'
     user = 'partidaa'
@@ -21,7 +24,21 @@ def get_connection:
         print(e)
     return connection
 
-app = flask.Flask(__name__)
+def get_select_query_results(connection, query, parameters=None):
+    '''
+    Executes the specified query with the specified tuple of
+    parameters. Returns a cursor for the query results.
+    Raises an exception if the query fails for any reason.
+    '''
+    cursor = connection.cursor()
+    if parameters is not None:
+        cursor.execute(query, parameters)
+    else:
+        cursor.execute(query)
+    return cursor
+
+
+
 
 # Who needs a database when you can just hard-code some actors and movies?
 food_items = []
@@ -40,7 +57,7 @@ def hello():
 
 @app.route('/fooditems')
 def get_food_items():
-    ''' Returns a list of all items filtered by min and max quantity of a certain stat '''
+    ''' Returns a list of all items  '''
     item_list = []
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
