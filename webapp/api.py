@@ -42,11 +42,6 @@ food_items = []
 brands = []
 serving_size_unit = []
 
-statList = [
-'calories', 'calories_fat', 'total_fat', 'sat_fat', 'trans_fat_acid', 'poly_unsat_fat',
-'mono_unsat_fat', 'cholesterol', 'sodium', 'total_carb', 'dietary_fiber', 'sugars', 'protein',
-'vitamin_A', 'vitamin_C', 'calcium', 'iron', 'potassium'
-]
 
 @app.route('/')
 def hello():
@@ -58,17 +53,22 @@ def get_food_items():
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
     max_quantity = flask.request.args.get('mq', default=0, type=int)
-    query = "SELECT item_name" + stat + "FROM stats"
+    query = "SELECT item_name, " + stat + "FROM stats"
+    
     item_list = []
     connection = get_connection()
 
     if connection is not None:
         try:
+            for row in get_select_query_results(connection, query):
+                item = {'item_name':row[0], stat:row[1]}
+                if (min_quantity <= row[1] <= max_quantity):
+                    item_list.append(item)
+        except Exception as e:
+            print(e, file=sys.stderr)
+        connection.close()
 
-    for item in items:
-        stat_index = statList.index(stat) + 1
-        if item[stat_index].get() <= max_quantity and item[stat_index].get() >= min_quantity:
-            item_list.append(item)
+
     return json.dumps(item_list)
 
 @app.route('/brands')
