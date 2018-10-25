@@ -10,16 +10,16 @@ import sys
 import flask
 import json
 import psycopg2
-
-password = ''
-database = 'food_items'
-user = 'partidaa@perlman.mathcs.carleton.edu'
-
-try:
-    connection = psycopg2.connect(database=database, user=user, password=password)
-except Exception as e:
-    print(e)
-    exit()
+def get_connection:
+    password = ''
+    database = 'partidaa'
+    user = 'partidaa'
+    connection = none
+    try:
+        connection = psycopg2.connect(database=database, user=user, password=password)
+    except Exception as e:
+        print(e)
+    return connection
 
 app = flask.Flask(__name__)
 
@@ -38,8 +38,8 @@ statList = [
 def hello():
     return 'Hello, Citizen of CS257.'
 
-@app.route('/items')
-def get_items():
+@app.route('/fooditems')
+def get_food_items():
     ''' Returns a list of all items filtered by min and max quantity of a certain stat '''
     item_list = []
     stat = flask.request.args.get('stat')
