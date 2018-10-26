@@ -47,14 +47,14 @@ serving_size_unit = []
 def hello():
     return 'Hello, Citizen of CS257.'
 
-@app.route('/stats')
+@app.route('/food_items')
 def get_food_items():
     ''' Returns a list of all items with stat(min, max)'''
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
     max_quantity = flask.request.args.get('mq', default=0, type=int)
     query = "SELECT item_name, " + stat + "FROM stats"
-    
+
     item_list = []
     connection = get_connection()
 
@@ -71,14 +71,48 @@ def get_food_items():
 
     return json.dumps(item_list)
 
+@app.route('/food_items/brands/<brand_name>')
+def get_food_items_by_brand(brand_name):
+    '''Returns a list of food_items of the same brand'''
+    item_query = "SELECT item_name, brand_id FROM stats"
+    brand_query = "SELECT brand_name, brand_id FROM stats"
+    item_list = []
+    connection = get_connection()
+
+    if connection is not None:
+        try:
+            brand_id_correct = ''
+            for row in get_select_query_results(connection, brand_query):
+                if row[0].lower() == brand_name.lower():
+                    brand_id_correct = row[1]
+                    break
+            for row in get_select_query_results(connection, item_query):
+                if row[1] == brand_id_correct:
+                    item = {'item_name':row[0]}
+                    item_list.append(item)
+        except Exception as e:
+            print(e, file=sys.stderr)
+        connection.close()
+
+    return json.dumps(item_list)
+
+
+
 @app.route('/brands')
 def get_brands():
     ''' Returns a list of all brands '''
+    query = "SELECT brand_name FROM stats"
     brand_list = []
-    for brand in brands:
-        brand_list.append(brand)
+    connection = get_connection()
+        if connection is not None:
+            try:
+                for row in get_select_query_results(connection, query):
+                    brand = {'brand_name':row[0]}
+                    brand_list.append(brand)
+            except Exception as e:
+                print(e, file=sys.stderr)
     return json.dumps(brand_list)
-    
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
