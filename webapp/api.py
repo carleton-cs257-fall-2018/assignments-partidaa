@@ -17,7 +17,7 @@ def get_connection():
     password = ''
     database = 'partidaa'
     user = 'partidaa'
-    connection = none
+    connection = None
     try:
         connection = psycopg2.connect(database=database, user=user, password=password)
     except Exception as e:
@@ -37,9 +37,6 @@ def get_select_query_results(connection, query, parameters=None):
         cursor.execute(query)
     return cursor
 
-food_items = []
-brands = []
-serving_size_unit = []
 
 
 @app.route('/')
@@ -48,14 +45,14 @@ def hello():
 
 @app.route('/food_items')
 def get_food_items():
-    print("fooditem")
-    '''Returns a list of all items with stat(min, max)
+    #return 'food items'
+    '''Returns a list of all items with stat(min, max)'''
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
     max_quantity = flask.request.args.get('mq', default=0, type=int)
-    query = "SELECT item_name, " + stat + "FROM stats"
+    query = "SELECT item_name, " + stat + " FROM stats"
 
-    item_list = []
+    item_list = ["bones"]
     connection = get_connection()
 
     if connection is not None:
@@ -69,14 +66,14 @@ def get_food_items():
         connection.close()
 
 
-    return json.dumps(item_list)'''
+    return json.dumps(item_list)
 
 @app.route('/food_items/brands/<brand_name>')
 def get_food_items_by_brand(brand_name):
-    print("fooditembrands")
-    '''Returns a list of food_items of the same brand
+    #print("fooditembrands")
+    '''Returns a list of food_items of the same brand'''
     item_query = "SELECT item_name, brand_id FROM stats"
-    brand_query = "SELECT brand_name, brand_id FROM stats"
+    brand_query = "SELECT name, id FROM brands"
     item_list = []
     connection = get_connection()
 
@@ -89,19 +86,19 @@ def get_food_items_by_brand(brand_name):
                     break
             for row in get_select_query_results(connection, item_query):
                 if row[1] == brand_id_correct:
-                    item = {'item_name':row[0]}
+                    item = {'item_name':row[0], 'brand_id':row[1]}
                     item_list.append(item)
         except Exception as e:
             print(e, file=sys.stderr)
         connection.close()
 
-    return json.dumps(item_list)'''
+    return json.dumps(item_list)
 
 @app.route('/brands')
 def get_brands():
-    print("brands")
-    ''' Returns a list of all brands
-    query = "SELECT brand_name FROM stats"
+    #print("brands")
+    ''' Returns a list of all brands'''
+    query = "SELECT name FROM brands"
     brand_list = []
     connection = get_connection()
     if connection is not None:
@@ -111,7 +108,7 @@ def get_brands():
                 brand_list.append(brand)
         except Exception as e:
             print(e, file=sys.stderr)
-    return json.dumps(brand_list)'''
+    return json.dumps(brand_list)
 
 
 if __name__ == '__main__':
