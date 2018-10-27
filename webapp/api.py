@@ -42,7 +42,7 @@ brands = []
 serving_size_unit = []
 
 
-@app.route('/hello')
+@app.route('/')
 def hello():
     return 'Hello, Citizen of CS257.'
 
@@ -71,7 +71,7 @@ def get_food_items():
     return json.dumps(item_list)
 
 @app.route('/food_items/brands/<brand_name>')
-def get_food_items_by_brand(brand_name):
+'''def get_food_items_by_brand(brand_name):
     '''Returns a list of food_items of the same brand'''
     item_query = "SELECT item_name, brand_id FROM stats"
     brand_query = "SELECT brand_name, brand_id FROM stats"
@@ -93,9 +93,7 @@ def get_food_items_by_brand(brand_name):
             print(e, file=sys.stderr)
         connection.close()
 
-    return json.dumps(item_list)
-
-
+    return json.dumps(item_list)'''
 
 @app.route('/brands')
 def get_brands():
@@ -116,7 +114,7 @@ def get_brands():
 if __name__ == '__main__':
     if len(sys.argv) != 3:
         print('Usage: {0} host port'.format(sys.argv[0]))
-        print('  Example: {0} perlman.mathcs.carleton.edu 5101'.format(sys.argv[0]))
+        print('Example: {0} perlman.mathcs.carleton.edu 5101'.format(sys.argv[0]))
         exit()
 
     host = sys.argv[1]
