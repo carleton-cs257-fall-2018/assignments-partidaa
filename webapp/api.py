@@ -47,8 +47,9 @@ def hello():
     return 'Hello, Citizen of CS257.'
 
 @app.route('/food_items')
-def get_food_items():
-    ''' Returns a list of all items with stat(min, max)'''
+    print("fooditem")
+'''def get_food_items():
+    Returns a list of all items with stat(min, max)
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=int)
     max_quantity = flask.request.args.get('mq', default=0, type=int)
@@ -68,11 +69,12 @@ def get_food_items():
         connection.close()
 
 
-    return json.dumps(item_list)
+    return json.dumps(item_list)'''
 
 @app.route('/food_items/brands/<brand_name>')
+    print("fooditembrands")
 '''def get_food_items_by_brand(brand_name):
-    '''Returns a list of food_items of the same brand'''
+    Returns a list of food_items of the same brand
     item_query = "SELECT item_name, brand_id FROM stats"
     brand_query = "SELECT brand_name, brand_id FROM stats"
     item_list = []
