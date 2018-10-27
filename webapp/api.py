@@ -37,13 +37,12 @@ def get_select_query_results(connection, query, parameters=None):
         cursor.execute(query)
     return cursor
 
-# Who needs a database when you can just hard-code some actors and movies?
 food_items = []
 brands = []
 serving_size_unit = []
 
 
-@app.route('/')
+@app.route('/hello')
 def hello():
     return 'Hello, Citizen of CS257.'
 
@@ -104,13 +103,13 @@ def get_brands():
     query = "SELECT brand_name FROM stats"
     brand_list = []
     connection = get_connection()
-        if connection is not None:
-            try:
-                for row in get_select_query_results(connection, query):
-                    brand = {'brand_name':row[0]}
-                    brand_list.append(brand)
-            except Exception as e:
-                print(e, file=sys.stderr)
+    if connection is not None:
+        try:
+            for row in get_select_query_results(connection, query):
+                brand = {'brand_name':row[0]}
+                brand_list.append(brand)
+        except Exception as e:
+            print(e, file=sys.stderr)
     return json.dumps(brand_list)
 
 
