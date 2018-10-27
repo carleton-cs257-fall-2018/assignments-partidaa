@@ -3,13 +3,23 @@ Henry Pearson
 phase4.txt
 
 Creation of our table:
-CREATE TABLE items (
+CREATE TABLE food_items (
     id SERIAL,
     item_name text,
     brand_name text
 );
 
-CREATE TABLE stats (
+CREATE TABLE brands (
+    id INT,
+    name TEXT
+);
+
+CREATE TABLE serving_size_unit (
+    id INT,
+    name TEXT
+);
+
+CREATE TABLE food_stats (
 id SERIAL,
 calories float,
 calories_fat float,
