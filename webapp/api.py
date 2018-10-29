@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 '''
-    example_flask_app.py
-    Jeff Ondich, 22 April 2016
-
-    A slightly more complicated Flask sample app than the
-    "hello world" app found at http://flask.pocoo.org/.
+Addison Partida & Henry Pearson
+Phase5 - API.py
+CS257 Jeff Ondich
 '''
 import sys
 import flask
