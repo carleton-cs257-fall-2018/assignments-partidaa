@@ -1,0 +1,25 @@
+/*
+   webapp.css
+   2 May 2018
+   Addison Partida
+*/
+
+p {
+    color: green;
+    font-size: 20pt
+}
+
+h1 {
+    font-size: 450%;
+}
+
+ol {
+    /* See https://www.w3schools.com/css/css_list.asp */
+    list-style-type: lower-alpha;
+}
+
+.alarming {
+    /* equivalent to color: red */
+    color: blue;
+  
+}
