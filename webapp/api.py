@@ -48,7 +48,8 @@ def get_food_items():
     stat = flask.request.args.get('stat')
     min_quantity = flask.request.args.get('sq', default=0, type=float)
     max_quantity = flask.request.args.get('mq', default=0, type=float)
-    query = "SELECT item_name, " + stat + ", servings_per_cont FROM stats"
+    query = "SELECT item_name, " + stat + ", servings_per_cont, unit_id FROM stats"
+    unit_query = "SELECT * FROM serving_size_unit"
 
     item_list = []
     connection = get_connection()
@@ -56,7 +57,11 @@ def get_food_items():
     if connection is not None:
         try:
             for row in get_select_query_results(connection, query):
-                item = {'item_name':row[0], stat:row[1], 'Servings per containter':row[2]}
+                unitSize = ''
+                for unit in get_select_query_results(connection, unit_query):
+                    if (unit[1] == row[3]):
+                        unitSize = unit[0]
+                item = {'item_name':row[0], stat:row[1], 'servings_per_containter':row[2], 'serving_unit':unitSize}
                 if (row[1] != None and row[2] != None and min_quantity <= row[1]*row[2] <= max_quantity):
                     item_list.append(item)
         except Exception as e:
@@ -67,24 +72,42 @@ def get_food_items():
     return json.dumps(item_list)
 
 @app.route('/food_items/brands/<brand_name>')
-def get_food_items_by_brand(brand_name):
+@app.route('/food_items/brands')
+def get_food_items_by_brand(brand_name = None):
     #print("fooditembrands")
     '''Returns a list of food_items of the same brand'''
-    item_query = "SELECT item_name, brand_id, calories, protein, total_carb, sugars, servings_per_cont FROM stats"
+    item_query = "SELECT item_name, brand_id, calories, protein, total_carb, sugars, servings_per_cont, unit_id FROM stats"
     brand_query = "SELECT name, id FROM brands"
+    unit_query = "SELECT * FROM serving_size_unit"
     item_list = []
     connection = get_connection()
 
     if connection is not None:
         try:
-            brand_id_correct = ''
-            for row in get_select_query_results(connection, brand_query):
-                if row[0].lower() == brand_name.lower():
-                    brand_id_correct = row[1]
-                    break
-            for row in get_select_query_results(connection, item_query):
-                if row[1] == brand_id_correct:
-                    item = {'item_name':row[0], 'brand_id':row[1], 'calories': row[2], 'protein':row[3], 'total_carb':row[4], 'sugars':row[5], 'servings_per_cont': row[6]}
+           brand_id_correct = ''
+           if brand_name != None:
+                for row in get_select_query_results(connection, brand_query):
+                    if row[0].lower() == brand_name.lower():
+                        brand_id_correct = row[1]
+                        break
+           for row in get_select_query_results(connection, item_query):
+               if row[1] == brand_id_correct and brand_name != None:
+                   unitSize = ''
+                   for unit in get_select_query_results(connection, unit_query):
+                       if (unit[1] == row[7]):
+                           unitSize = unit[0]
+                   item = {'item_name':row[0], 'brand_id':row[1], 'calories': row[2], 'protein':row[3],
+                        'total_carb':row[4], 'sugars':row[5], 'servings_per_cont': row[6], 'serving_unit': unitSize}
+
+                   item_list.append(item)
+           if brand_name == None:
+                for row in get_select_query_results(connection, item_query):
+                    unitSize = ''
+                    for unit in get_select_query_results(connection, unit_query):
+                        if (unit[1] == row[7]):
+                            unitSize = unit[0]
+                    item = {'item_name':row[0], 'brand_id':row[1], 'calories': row[2], 'protein':row[3],
+                            'total_carb':row[4], 'sugars':row[5], 'servings_per_cont': row[6], 'serving_unit': unitSize}
                     item_list.append(item)
         except Exception as e:
             print(e, file=sys.stderr)
