@@ -46,18 +46,18 @@ def get_food_items():
     #return 'food items'
     '''Returns a list of all items with stat(min, max)'''
     stat = flask.request.args.get('stat')
-    min_quantity = flask.request.args.get('sq', default=0, type=int)
-    max_quantity = flask.request.args.get('mq', default=0, type=int)
-    query = "SELECT item_name, " + stat + " FROM stats"
+    min_quantity = flask.request.args.get('sq', default=0, type=float)
+    max_quantity = flask.request.args.get('mq', default=0, type=float)
+    query = "SELECT item_name, " + stat + ", servings_per_cont FROM stats"
 
-    item_list = ["bones"]
+    item_list = []
     connection = get_connection()
 
     if connection is not None:
         try:
             for row in get_select_query_results(connection, query):
-                item = {'item_name':row[0], stat:row[1]}
-                if (min_quantity <= row[1] <= max_quantity):
+                item = {'item_name':row[0], stat:row[1], 'Servings per containter':row[2]}
+                if (row[1] != None and row[2] != None and min_quantity <= row[1]*row[2] <= max_quantity):
                     item_list.append(item)
         except Exception as e:
             print(e, file=sys.stderr)
@@ -70,7 +70,7 @@ def get_food_items():
 def get_food_items_by_brand(brand_name):
     #print("fooditembrands")
     '''Returns a list of food_items of the same brand'''
-    item_query = "SELECT item_name, brand_id FROM stats"
+    item_query = "SELECT item_name, brand_id, calories, protein, total_carb, sugars, servings_per_cont FROM stats"
     brand_query = "SELECT name, id FROM brands"
     item_list = []
     connection = get_connection()
@@ -84,7 +84,7 @@ def get_food_items_by_brand(brand_name):
                     break
             for row in get_select_query_results(connection, item_query):
                 if row[1] == brand_id_correct:
-                    item = {'item_name':row[0], 'brand_id':row[1]}
+                    item = {'item_name':row[0], 'brand_id':row[1], 'calories': row[2], 'protein':row[3], 'total_carb':row[4], 'sugars':row[5], 'servings_per_cont': row[6]}
                     item_list.append(item)
         except Exception as e:
             print(e, file=sys.stderr)
