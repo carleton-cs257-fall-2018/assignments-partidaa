@@ -24,7 +24,7 @@
       <div id="colorbox">Stat Selected: "Moose"</div>
 
       <p><input id="magicword" type="text" />
-      <button id="changewordbutton">Change the magic word</button>
+      <button id="generateTable">Generate</button>
       </p>
 
   </body>
@@ -63,124 +63,7 @@ we allow user to search by:</p>
   <h2>Nutritional statistics</h2>
 
   <div style="overflow-x:auto;">
-    <table id = "statistics">
-      <tr>
-        <th onclick="sortTable(0)">Brand Name</th>
-        <th onclick="sortTable(1)">Item Name</th>
-        <th onclick="sortTable(2)">Calories</th>
-        <th onclick="sortTable(3)">Fat</th>
-        <th onclick="sortTable(4)">Sugars</th>
-        <th onclick="sortTable(5)">Carbs</th>
-        <th onclick="sortTable(6)">Monounsaturated fat</th>
-        <th onclick="sortTable(7)">Protein</th>
-        <th onclick="sortTable(8)">Iron</th>
-        <th onclick="sortTable(9)">Sodium</th>
-        <th>serving size</th>
-        <th>Serving Quantity</th>
-      </tr>
-      <tr>
-        <td>Farm</td>
-        <td>Smith</td>
-        <td>50</td>
-        <td>50</td>
-        <td>5</td>
-        <td>5230</td>
-        <td>505</td>
-        <td>508756</td>
-        <td>50356</td>
-        <td>50</td>
-        <td>50</td>
-        <td>50</td>
-      </tr>
-      <tr>
-        <td>Nature Valey</td>
-        <td>Berry Granola</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-        <td>94</td>
-      </tr>
-      <tr>
-        <td>Pepperidge Farms</td>
-        <td>Chocolate Cookie</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-        <td>67</td>
-      </tr>
-
-      <script>
-      function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("statistics");
-        switching = true;
-        //Set the sorting direction to ascending:
-        dir = "asc";
-        /*Make a loop that will continue until
-        no switching has been done:*/
-        while (switching) {
-          //start by saying: no switching is done:
-          switching = false;
-          rows = table.rows;
-          /*Loop through all table rows (except the
-          first, which contains table headers):*/
-          for (i = 1; i < (rows.length - 1); i++) {
-            //start by saying there should be no switching:
-            shouldSwitch = false;
-            /*Get the two elements you want to compare,
-            one from current row and one from the next:*/
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-            /*check if the two rows should switch place,
-            based on the direction, asc or desc:*/
-            if (dir == "asc") {
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                //if so, mark as a switch and break the loop:
-                shouldSwitch= true;
-                break;
-              }
-            } else if (dir == "desc") {
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                //if so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-              }
-            }
-          }
-          if (shouldSwitch) {
-            /*If a switch has been marked, make the switch
-            and mark that a switch has been done:*/
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            //Each time a switch is done, increase this count by 1:
-            switchcount ++;
-          } else {
-            /*If no switching has been done AND the direction is "asc",
-            set the direction to "desc" and run the while loop again.*/
-            if (switchcount == 0 && dir == "asc") {
-              dir = "desc";
-              switching = true;
-            }
-          }
-        }
-      }
-      </script>
-    </table>
-
-
-
+    <table id="results_table"></table>
 </div>
 </div>
 
