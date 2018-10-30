@@ -1,5 +1,5 @@
 function initialize(){
-  var element = document.getElementById('changewordbutton')
+  var element = document.getElementById('generateTable')
   if (element) {
     element.onclick = onGenerateTableClicked;
   }
@@ -21,7 +21,7 @@ function getBaseURL() {
 }
 
 function onGenerateTableClicked() {
-    var url = getBaseURL() + '/fooditems/brands/';
+    var url = getBaseURL() + '/food_items/brands';
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -154,7 +154,6 @@ function sortTable(n) {
     }
   }
 }
-</script>
 
 
 window.onload = initialize;
