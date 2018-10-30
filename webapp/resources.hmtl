@@ -1,0 +1,17 @@
+<!-- Addison Partida and Henry Pearson -->
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="home.css" />
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="home.js"></script>
+    <title>Nutritional Contents</title>
+</head>
+<body>
+  <!-- Navigation bar-->
+<h1 class = "header"><center> Welcome to our website!<center></h1>
+  <div class="topnav">
+      <a class="active" href="#home">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+  </div>
