@@ -3,7 +3,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = "home.css")}}" />
     <meta charset="UTF-8">
-    <script type="text/javascript" src="home.js"></script>
+    <script>var api_port = {{ api_port }};</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='books.js') }}" defer></script>
     <title>Nutritional Contents</title>
 </head>
 <body>
