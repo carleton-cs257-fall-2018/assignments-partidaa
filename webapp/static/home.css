@@ -1,0 +1,24 @@
+
+body {
+    margin: 20px;
+}
+
+#belowheader{
+  height: 100%;
+  width: 100%;
+}
+
+#border_left{
+    height:80%;
+    width:10%;
+}
+
+#op_space{
+  height:100%;
+  width:80%;
+}
+
+#border_right{
+  height:80%;
+  width:10%;
+}
