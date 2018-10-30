@@ -76,7 +76,7 @@ def get_food_items():
 def get_food_items_by_brand(brand_name = None):
     #print("fooditembrands")
     '''Returns a list of food_items of the same brand'''
-    item_query = "SELECT item_name, brand_id, calories, protein, total_carb, sugars, servings_per_cont, unit_id FROM stats"
+    item_query = "SELECT * FROM stats"
     brand_query = "SELECT name, id FROM brands"
     unit_query = "SELECT * FROM serving_size_unit"
     item_list = []
@@ -96,9 +96,11 @@ def get_food_items_by_brand(brand_name = None):
                    for unit in get_select_query_results(connection, unit_query):
                        if (unit[1] == row[7]):
                            unitSize = unit[0]
-                   item = {'item_name':row[0], 'brand_id':row[1], 'calories': row[2], 'protein':row[3],
-                        'total_carb':row[4], 'sugars':row[5], 'servings_per_cont': row[6], 'serving_unit': unitSize}
-
+                   item = {'item_name':row[0], 'brand_name':brand_name, 'calories': row[7], 'calories_fat':row[8],
+                        'total_fat':row[9], 'sat_fat':row[10],'trans_fat_acid':row[11],'poly_unsat_fat':row[12],'mono_unsat_fat':row[13],
+                        'cholesterol':row[14],'sodium':row[15], 'total_carbs':row[16], 'dietary_fiber':row[17],  'sugars':row[18], 'protein':row[19],
+                        'vitamin_a':row[20], 'vitamin_c':row[21], 'calcium':row[22], 'iron':row[23], 'potassium':row[24], 'servings_per_cont':row[25],
+                        'serving_unit': unitSize}
                    item_list.append(item)
            if brand_name == None:
                 for row in get_select_query_results(connection, item_query):
@@ -106,8 +108,14 @@ def get_food_items_by_brand(brand_name = None):
                     for unit in get_select_query_results(connection, unit_query):
                         if (unit[1] == row[7]):
                             unitSize = unit[0]
-                    item = {'item_name':row[0], 'brand_id':row[1], 'calories': row[2], 'protein':row[3],
-                            'total_carb':row[4], 'sugars':row[5], 'servings_per_cont': row[6], 'serving_unit': unitSize}
+                    for brand in get_select_query_results(connection, brand_query):
+                        if brand[1] == row[1]:
+                            brand_name = brand[0]
+                    item = {'item_name':row[0], 'brand_name':brand_name, 'calories': row[7], 'calories_fat':row[8],
+                         'total_fat':row[9], 'sat_fat':row[10],'trans_fat_acid':row[11],'poly_unsat_fat':row[12],'mono_unsat_fat':row[13],
+                         'cholestrol':row[14],'sodium':row[15], 'total_carb':row[16], 'dietary_fiber':row[17],  'sugars':row[18], 'protein':row[19],
+                         'vitamin_a':row[20], 'vitamin_c':row[21], 'calcium':row[22], 'iron':row[23], 'potassium':row[24], 'servings_per_cont':row[25],
+                         'serving_unit': unitSize}
                     item_list.append(item)
         except Exception as e:
             print(e, file=sys.stderr)
