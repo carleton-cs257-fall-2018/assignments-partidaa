@@ -10,7 +10,7 @@ function initialize(){
 
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
-output.innerHTML = 15; // Display the default slider value
+output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
@@ -27,13 +27,10 @@ function onGenerateTableClicked() {
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
-
     // When the results come back, transform them from JSON string into
     // a Javascript object (in this case, a list of author dictionaries).
     .then((response) => response.json())
-
     // Once you have your list of author dictionaries, use it to build
-    console.log(response)
     // an HTML table displaying the author names and lifespan.
     .then(function(fooditemsList) {
         // Build the table body.
