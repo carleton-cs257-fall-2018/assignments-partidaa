@@ -34,13 +34,13 @@
 .left {
     float:left;
     width: 20%;
-    background-color: green;
+    background-image: linear-gradient(#bdc3c7, #2c3e50);
     padding: 10px 10px 10px 10px;
 }
 
 /* Middle column */
 .right {
-    background-color: red;
+    background-image: linear-gradient(#0b8793, #060033);
     width: 97.85%;
     padding: 10px 10px 10px 10px;
 }
