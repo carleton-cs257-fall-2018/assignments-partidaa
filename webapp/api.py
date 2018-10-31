@@ -35,6 +35,10 @@ def get_select_query_results(connection, query, parameters=None):
         cursor.execute(query)
     return cursor
 
+@app.after_request
+def set_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 
 @app.route('/')
@@ -113,7 +117,7 @@ def get_food_items_by_brand(brand_name = None):
                             brand_name = brand[0]
                     item = {'item_name':row[0], 'brand_name':brand_name, 'calories': row[7], 'calories_fat':row[8],
                          'total_fat':row[9], 'sat_fat':row[10],'trans_fat_acid':row[11],'poly_unsat_fat':row[12],'mono_unsat_fat':row[13],
-                         'cholestrol':row[14],'sodium':row[15], 'total_carb':row[16], 'dietary_fiber':row[17],  'sugars':row[18], 'protein':row[19],
+                         'cholesterol':row[14],'sodium':row[15], 'total_carb':row[16], 'dietary_fiber':row[17],  'sugars':row[18], 'protein':row[19],
                          'vitamin_a':row[20], 'vitamin_c':row[21], 'calcium':row[22], 'iron':row[23], 'potassium':row[24], 'servings_per_cont':row[25],
                          'serving_unit': unitSize}
                     item_list.append(item)

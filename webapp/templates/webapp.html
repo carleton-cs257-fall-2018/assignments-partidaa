@@ -57,36 +57,15 @@ we allow user to search by:</p>
   tr:nth-child(even){background-color: #f2f2f2}
   tr:nth-child(odd){background-color: white}
   </style>
-  </head>
   <body>
   <h2>Nutritional statistics</h2>
+  <div>
+    <input type='button' class='pageNum' id='pageInput'>
+    <output id='pageOutput'>
+  </div>
 
   <div style="overflow-x:auto;">
     <table id="results_table">
-      <tr>
-        <th onclick="sortTable(0)">Item Name</th>
-        <th onclick="sortTable(1)">Brand Name</th>
-        <th onclick="sortTable(2)">Calories</th>
-        <th onclick="sortTable(3)">Calories From Fat</th>
-        <th onclick="sortTable(4)">Total Fat</th>
-        <th onclick="sortTable(5)">Saturated Fat</th>
-        <th onclick="sortTable(6)">Trans Fatty Acid</th>
-        <th onclick="sortTable(7)">PolyUnsaturated Fat</th>
-        <th onclick="sortTable(8)">MonoUnsaturated Fat</th>
-        <th onclick="sortTable(9)">Cholesterol</th>
-        <th onclick="sortTable(10)">Sodium</th>
-        <th onclick="sortTable(11)">Total Carbohydrates</th>
-        <th onclick="sortTable(12)">Dietary Fiber</th>
-        <th onclick="sortTable(13)">Sugars</th>
-        <th onclick="sortTable(14)">Protein</th>
-        <th onclick="sortTable(15)">Vitamin A</th>
-        <th onclick="sortTable(16)">Vitamin C</th>
-        <th onclick="sortTable(17)">Calcium</th>
-        <th onclick="sortTable(18)">Iron</th>
-        <th onclick="sortTable(19)">Potassium</th>
-        <th>serving size</th>
-        <th>Serving Quantity</th>
-      </tr>
       <script>
       function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
