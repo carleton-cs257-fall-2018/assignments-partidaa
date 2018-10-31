@@ -19,15 +19,13 @@ slider.oninput = function() {
 
 var pageIn = document.getElementById("pageInput");
 var pageOut = document.getElementById("pageOutput");
+pageOut.innerHTML = pageIn.value;
 
 // Update the current slider value (each time you drag the slider handle)
-if (pageIn) {
-  pageIn.onclick = incrementpageOut;
+pageIn.oninput = function() {
+  output.innerHTML = this.value;
 }
 
-function incrementpageOut() {
-  pageOut += 1;
-}
 
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
@@ -35,7 +33,7 @@ function getBaseURL() {
 }
 
 function onGenerateTableClicked() {
-    var page = document.getElementById('pageOutput')
+    //var page = document.getElementById('pageInput').value;
     var url = getBaseURL() + '/food_items/brands';
 
     // Send the request to the Books API /authors/ endpoint
@@ -73,29 +71,29 @@ function onGenerateTableClicked() {
                         '<th>Serving Quantity</th>' +
                         '</tr>' +
                         '</div>'
-          for (var k = 0; k < 50; k++) {
-              tableBody += '<tr>'+'<td>' + fooditemsList[k+(page*50)]['item_name']+'</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['brand_name'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['calories'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['calories_fat'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['total_fat'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['sat_fat'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['trans_fat_acid'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['poly_unsat_fat'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['mono_unsat_fat'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['cholestrol'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['sodium'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['total_carbs'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['dietary_fiber'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['sugars'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['protein'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['vitamin_A'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['vitamin_C'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['calcium'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['iron'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['potassium'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['servings_per_cont'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k+(page*50)]['serving_unit'] + '</td>';
+          for (var k = 0 ; k < 50; k++) {
+              tableBody += '<tr>'+'<td>' + fooditemsList[k]['item_name']+'</td>';
+              tableBody += '<td>'+ fooditemsList[k]['brand_name'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['calories'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['calories_fat'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['total_fat'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['sat_fat'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['trans_fat_acid'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['poly_unsat_fat'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['mono_unsat_fat'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['cholestrol'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['sodium'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['total_carbs'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['dietary_fiber'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['sugars'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['protein'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['vitamin_A'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['vitamin_C'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['calcium'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['iron'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['potassium'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['servings_per_cont'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['serving_unit'] + '</td>';
               tableBody += '</tr>';
           }
           // Put the table body we just built inside the table that's already on the page.
