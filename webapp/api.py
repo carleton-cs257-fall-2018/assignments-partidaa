@@ -45,6 +45,26 @@ def set_headers(response):
 def hello():
     return 'Hello, Citizen of CS257.'
 
+@app.route('/maxStat/<stat>')
+def get_max_stat(stat):
+    stat_query = 'SELECT ' + stat + ' FROM stats'
+    maxStat = [0.0, ]
+    print(type(maxStat))
+    connection = get_connection()
+
+    if connection is not None:
+        try:
+            for value in get_select_query_results(connection, stat_query):
+                a = value[0]
+                if (a != None and (a - maxStat) > 0) :
+                    maxStat = value
+                elif (a == None):
+                    continue
+        except Exception as e:
+            print(e, file=sys.stderr)
+        connection.close()
+    return json.dumps(maxStat)
+
 @app.route('/food_items')
 def get_food_items():
     #return 'food items'
@@ -65,7 +85,7 @@ def get_food_items():
                 for unit in get_select_query_results(connection, unit_query):
                     if (unit[1] == row[3]):
                         unitSize = unit[0]
-                item = {'item_name':row[0], stat:row[1], 'servings_per_containter':row[2], 'serving_unit':unitSize}
+                item = {'item_name':row[0], stat:row[1], 'servings_per_container':row[2], 'serving_unit':unitSize}
                 if (row[1] != None and row[2] != None and min_quantity <= row[1]*row[2] <= max_quantity):
                     item_list.append(item)
         except Exception as e:

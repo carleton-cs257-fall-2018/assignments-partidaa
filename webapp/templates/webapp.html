@@ -18,31 +18,35 @@
 <!-- Green Part -->
 <div class = "column left">
   <body>
-      <h2>Select Data</h2>
-
-      <div id="colorbox">Stat Selected: "Moose"</div>
+      <h2>Select Filter Data</h2>
 
       <!--<p><input id="magicword" type="text" />-->
-      <button id="generateTable">Generate</button>
-
-      </p>
-    <form action="/action_page.php">
-  Stat Type:<br>
-  <input type="text" name="firstname" value="Calories"><br>
-  Min:<br>
-  Max:<br>
-  <input type="text" name="min" value="0"><br><br>
-  <input type="text" name="min" value="500"><br><br>
-  <input type="submit" value="Submit">
-  <input type="reset">
-</form>
+      <button id="generateTable">Generate Table</button>
+      <br>
+      <select id='filterList'>
+        <option value = 'calories'>Calories</option>
+        <option value = 'calories_fat'>Calories From Fat</option>
+        <option value = 'total_fat'>Total Fat</option>
+        <option value = 'sat_fat'>Saturated Fat</option>
+        <option value = 'trans_fat_acid'>Trans Fatty Acid</option>
+        <option value = 'poly_unsat_fat'>Polyunsaturated Fat</option>
+        <option value = 'mono_unsat_fat'>Monounsaturated Fat</option>
+        <option value = 'cholesterol'>Cholesterol</option>
+        <option value = 'sodium'>Sodium</option>
+        <option value = 'total_carb'>Total Carbohydrates</option>
+        <option value = 'dietary_fiber'>Dietary Fiber</option>
+        <option value = 'sugars'>Sugars</option>
+        <option value = 'vitamin_a'>Vitamin A</option>
+        <option value = 'vitamin_c'>Vitamin C</option>
+        <option value = 'calcium'>Calcium</option>
+        <option value = 'iron'>Iron</option>
+        <option value = 'potassium'>Potassium</option>
+      </select>
+      <button id='generateFilter'>Create Filter</button>
+      <div id='filterColumn'></div>
+      <br>
+      <br>
   </body>
-  <div class="slidecontainer">
-    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-    <output id="output">
-  </div>
-
-
 </div>
 
 <!-- Red part -->
@@ -70,10 +74,11 @@ we allow user to search by:</p>
   </style>
   <body>
   <h2>Nutritional statistics</h2>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+  <!--link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>-->
+
   <div style="overflow-x:auto;">
     <table id="results_table">
       <script>
