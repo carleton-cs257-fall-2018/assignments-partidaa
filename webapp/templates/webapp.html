@@ -24,8 +24,18 @@
 
       <!--<p><input id="magicword" type="text" />-->
       <button id="generateTable">Generate</button>
-      </p>
 
+      </p>
+    <form action="/action_page.php">
+  Stat Type:<br>
+  <input type="text" name="firstname" value="Calories"><br>
+  Min:<br>
+  Max:<br>
+  <input type="text" name="min" value="0"><br><br>
+  <input type="text" name="min" value="500"><br><br>
+  <input type="submit" value="Submit">
+  <input type="reset">
+</form>
   </body>
   <div class="slidecontainer">
     <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
@@ -43,6 +53,7 @@
 we allow user to search by:</p>
   <!-- Buidling table -->
   <style>
+
   table {
       border-collapse: collapse;
       width: 100%;
@@ -59,7 +70,10 @@ we allow user to search by:</p>
   </style>
   <body>
   <h2>Nutritional statistics</h2>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
   <div style="overflow-x:auto;">
     <table id="results_table">
       <script>

@@ -1,5 +1,7 @@
 initialize();
 
+
+
 function initialize(){
   var element = document.getElementById('generateTable')
   if (element) {
@@ -25,7 +27,6 @@ pageOut.innerHTML = pageIn.value;
 pageIn.oninput = function() {
   output.innerHTML = this.value;
 }
-
 
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
@@ -81,14 +82,14 @@ function onGenerateTableClicked() {
               tableBody += '<td>'+ fooditemsList[k]['trans_fat_acid'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['poly_unsat_fat'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['mono_unsat_fat'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k]['cholestrol'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['cholesterol'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['sodium'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k]['total_carbs'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['total_carb'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['dietary_fiber'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['sugars'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['protein'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k]['vitamin_A'] + '</td>';
-              tableBody += '<td>'+ fooditemsList[k]['vitamin_C'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['vitamin_a'] + '</td>';
+              tableBody += '<td>'+ fooditemsList[k]['vitamin_c'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['calcium'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['iron'] + '</td>';
               tableBody += '<td>'+ fooditemsList[k]['potassium'] + '</td>';
@@ -101,6 +102,7 @@ function onGenerateTableClicked() {
           if (resultsTableElement) {
               resultsTableElement.innerHTML = tableBody;
           }
+
 
 
     })
